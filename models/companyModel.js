@@ -1,28 +1,32 @@
 const uuid = require('uuid');
-const { Sequelize, DataTypes , BOOLEAN} = require('sequelize');
 // Define model
 module.exports = (sequelize, DataTypes) => {
-    const UserWorkspace = sequelize.define("user_workspace", {
-        user_workspace_id: {
+    const Company = sequelize.define("company", {
+        company_id: {
             allowNull: false,
             primaryKey: true,
-            type: DataTypes.UUID,
-            defaultValue: Sequelize.UUIDV4
+            type: DataTypes.UUID
         },
-        workspace_id: {
-            type: DataTypes.INTEGER,
-        },
-        user_id: {
-            type: DataTypes.UUID,
-        },
-        workspace_name: {
+        name: {
             type: DataTypes.STRING,
         },
-        owner_id: {
+        email: {
             type: DataTypes.STRING,
         },
-        flow_ns: {
+        services: {
             type: DataTypes.STRING,
+        },
+        employees: {
+            type: DataTypes.STRING,
+        },
+        customer_service_employees: {
+            type: DataTypes.STRING,
+        },
+        website: {
+            type: DataTypes.STRING,
+        },
+        customer_help_question: {
+            type: DataTypes.ARRAY,
         }
         //  by deafult it adds timestamps createdAt and updatedAt
     },
@@ -31,10 +35,10 @@ module.exports = (sequelize, DataTypes) => {
             // transform all passed model names (first parameter of define) into plural.
             // if you don't want that, set the following
             freezeTableName: true,
-            tableName: 'user_workspace'
+            tableName: 'company'
         });
 
-        UserWorkspace.beforeCreate(user_workspace => user_workspace.user_workspace_id = uuid);
+        Company.beforeCreate(company => company.company_id = uuid);
 
-    return UserWorkspace;
+    return User;
 }

@@ -78,3 +78,4 @@ db.sequelize.sync({ force: false }).then(() => {   //alter:true -----
 })
 
 module.exports = { db };
+

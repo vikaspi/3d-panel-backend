@@ -1,11 +1,13 @@
 const uuid = require('uuid');
+const { Sequelize, DataTypes , BOOLEAN} = require('sequelize');
 // Define model
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define("user", {
         user_id: {
             allowNull: false,
             primaryKey: true,
-            type: DataTypes.UUID
+            type: DataTypes.UUID,
+            defaultValue: Sequelize.UUIDV4
         },
         first_name: {
             type: DataTypes.STRING,
@@ -49,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
             tableName: 'user'
         });
 
-    User.beforeCreate(user => user.user_id = uuid());
+    User.beforeCreate(user => user.user_id = uuid);
 
     return User;
 }

@@ -37,15 +37,43 @@ db.userWorkspace = require('../models/userWorkspace.js')(sequelize, DataTypes);
 db.aiEmployees = require('../models/aiEmployees.js')(sequelize, DataTypes);
 db.chatbot = require('../models/chatbot.js')(sequelize, DataTypes);
 db.manualData = require('../models/manuals.js')(sequelize, DataTypes);
+db.pdfData= require('../models/pdf.js')(sequelize, DataTypes);
 
 
 db.users.hasMany(db.userWorkspace,{foreignKey:"user_id"});
+db.userWorkspace.hasOne(db.users,{foreignKey:"user_id"});
+
 db.aiEmployees.hasOne(db.chatbot,{foreignKey:"ai_employee_id"});
 
 db.aiEmployees.hasOne(db.manualData, { foreignKey: 'ai_employee_id' });
 
+// const userInfo = {
 
-db.sequelize.sync({ force: false }).then(() => {
+//     user_id: 'ef8c695f-fdc6-489f-b999-319cef0fe09f',
+//     workspace_name:'AVIjhghsa'
+//     // first_name:'jhon'
+//     };
+// //   db.users.create(userInfo);
+//    db.userWorkspace.create(userInfo);
+
+
+//    include: [
+//     {
+//       model: Collection,
+//       as: "item_collection",
+//       required: false,
+//       attributes: {
+//         exclude: [
+//           "smartcontract_address",
+//           "is_deleted",
+//           "created_at",
+//           "updated_at",
+//         ],
+//       },
+
+
+
+db.sequelize.sync({ force: false }).then(() => {   //alter:true -----
     console.log('yes re-sync done!')
 })
 

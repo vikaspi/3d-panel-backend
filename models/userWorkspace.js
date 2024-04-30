@@ -1,11 +1,13 @@
 const uuid = require('uuid');
+const { Sequelize, DataTypes , BOOLEAN} = require('sequelize');
 // Define model
 module.exports = (sequelize, DataTypes) => {
     const UserWorkspace = sequelize.define("user_workspace", {
         user_workspace_id: {
             allowNull: false,
             primaryKey: true,
-            type: DataTypes.UUID
+            type: DataTypes.UUID,
+            defaultValue: Sequelize.UUIDV4
         },
         workspace_id: {
             type: DataTypes.INTEGER,
@@ -32,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
             tableName: 'user_workspace'
         });
 
-        UserWorkspace.beforeCreate(user_workspace => user_workspace.user_workspace_id = uuid());
+        UserWorkspace.beforeCreate(user_workspace => user_workspace.user_workspace_id = uuid);
 
     return UserWorkspace;
 }

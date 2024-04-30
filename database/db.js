@@ -42,6 +42,8 @@ db.userApps = require('../models/userAppsModel.js')(sequelize, DataTypes);
 db.analytics = require('../models/analyticsModel.js')(sequelize, DataTypes);
 
 db.users.hasMany(db.userWorkspace,{foreignKey:"user_id"});
+db.userWorkspace.hasOne(db.users,{foreignKey:"user_id"});
+
 db.aiEmployees.hasOne(db.chatbot,{foreignKey:"ai_employee_id"});
 
 db.aiEmployees.hasOne(db.manualData, { foreignKey: 'ai_employee_id' });
@@ -56,3 +58,4 @@ db.sequelize.sync({ alter: true }).then(() => {      // force:false production
 })
 
 module.exports = { db };
+

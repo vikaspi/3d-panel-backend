@@ -3,15 +3,16 @@ const uuid = require('uuid');
 module.exports = (sequelize, DataTypes) => {
     const AIEmployees = sequelize.define("ai_employee", {
         ai_employee_id: {
-            allowNull: false,
+            type:DataTypes.INTEGER,
+            autoIncrement: true,
             primaryKey: true,
-            type: DataTypes.UUID
+            allowNull:false,
         },
         workspace_id: {
             type: DataTypes.INTEGER,
         },
         template_id: {
-            type: DataTypes.UUID,
+            type: DataTypes.INTEGER,
         },
         purpose_code: {
             type: DataTypes.STRING,
@@ -31,8 +32,6 @@ module.exports = (sequelize, DataTypes) => {
             freezeTableName: true,
             tableName: 'ai_employee'
         });
-
-        AIEmployees.beforeCreate(ai_employee => ai_employee.ai_employee_id = uuid());
 
     return AIEmployees;
 }

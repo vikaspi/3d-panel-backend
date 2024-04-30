@@ -1,27 +1,26 @@
+const uuid = require('uuid');
 // Define model
 module.exports = (sequelize, DataTypes) => {
-    const UserWorkspace = sequelize.define("user_workspace", {
-        user_workspace_id: {
+    const PdfData = sequelize.define("pdfData", {
+        pdf_data_id: {
             type:DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
             allowNull:false,
         },
-        workspace_id: {
+        ai_employee_id: {
             type: DataTypes.INTEGER,
         },
-        user_id: {
-            type: DataTypes.INTEGER,
-        },
-        workspace_name: {
+        pdf_data:{
             type: DataTypes.STRING,
         },
-        owner_id: {
+        pdf_path:{
             type: DataTypes.STRING,
         },
-        flow_ns: {
+        title:{
             type: DataTypes.STRING,
         }
+
         //  by deafult it adds timestamps createdAt and updatedAt
     },
         {
@@ -29,8 +28,8 @@ module.exports = (sequelize, DataTypes) => {
             // transform all passed model names (first parameter of define) into plural.
             // if you don't want that, set the following
             freezeTableName: true,
-            tableName: 'user_workspace'
+            tableName: 'pdfData'
         });
 
-    return UserWorkspace;
+    return PdfData;
 }

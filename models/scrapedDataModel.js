@@ -1,16 +1,23 @@
 const uuid = require('uuid');
 // Define model
 module.exports = (sequelize, DataTypes) => {
-    const PdfData = sequelize.define("pdfData", {
-        pdf_data_id: {
-            allowNull: false,
+    const ScrapedData = sequelize.define("scraped_data", {
+        scraped_data_id: {
+            type:DataTypes.INTEGER,
+            autoIncrement: true,
             primaryKey: true,
-            type: DataTypes.UUID
+            allowNull:false,
         },
         ai_employee_id: {
-            type: DataTypes.UUID,
+            type: DataTypes.INTEGER,
         },
-        pdf_data:{
+        url:{
+            type: DataTypes.ARRAY(DataTypes.STRING)
+        },
+        title:{
+            type: DataTypes.STRING,
+        },
+        content:{
             type: DataTypes.STRING,
         }
 
@@ -21,10 +28,8 @@ module.exports = (sequelize, DataTypes) => {
             // transform all passed model names (first parameter of define) into plural.
             // if you don't want that, set the following
             freezeTableName: true,
-            tableName: 'pdfData'
+            tableName: 'scraped_data'
         });
 
-    PdfData.beforeCreate(pdfData => pdfData.pdf_data_id = uuid());
-    console.log(PdfData);
-    return PdfData;
+    return ScrapedData;
 }

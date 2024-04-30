@@ -3,9 +3,10 @@ const uuid = require('uuid');
 module.exports = (sequelize, DataTypes) => {
     const Company = sequelize.define("company", {
         company_id: {
-            allowNull: false,
+            type:DataTypes.INTEGER,
+            autoIncrement: true,
             primaryKey: true,
-            type: DataTypes.UUID
+            allowNull:false,
         },
         name: {
             type: DataTypes.STRING,
@@ -26,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
         },
         customer_help_question: {
-            type: DataTypes.ARRAY,
+            type: DataTypes.ARRAY(DataTypes.STRING),
         }
         //  by deafult it adds timestamps createdAt and updatedAt
     },
@@ -38,7 +39,5 @@ module.exports = (sequelize, DataTypes) => {
             tableName: 'company'
         });
 
-        Company.beforeCreate(company => company.company_id = uuid);
-
-    return User;
+    return Company;
 }

@@ -3,12 +3,13 @@ const uuid = require('uuid');
 module.exports = (sequelize, DataTypes) => {
     const ManualData = sequelize.define("manual_data", {
         manual_data_id: {
-            allowNull: false,
+            type:DataTypes.INTEGER,
+            autoIncrement: true,
             primaryKey: true,
-            type: DataTypes.UUID
+            allowNull:false,
         },
         ai_employee_id: {
-            type: DataTypes.UUID,
+            type: DataTypes.INTEGER,
         },
         manual_data:{
             type: DataTypes.STRING,
@@ -23,8 +24,6 @@ module.exports = (sequelize, DataTypes) => {
             freezeTableName: true,
             tableName: 'manual_data'
         });
-
-    ManualData.beforeCreate(manualData => manualData.manual_data_id = uuid());
 
     return ManualData;
 }

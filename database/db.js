@@ -37,12 +37,15 @@ db.userWorkspace = require('../models/userWorkspaceModel.js')(sequelize, DataTyp
 db.aiEmployees = require('../models/aiEmployeesModel.js')(sequelize, DataTypes);
 db.chatbot = require('../models/chatbotModel.js')(sequelize, DataTypes);
 db.manualData = require('../models/manualsModel.js')(sequelize, DataTypes);
+db.pdfData = require('../models/pdfDataModel.js')(sequelize, DataTypes);
+db.scrapedData = require('../models/scrapedDataModel.js')(sequelize, DataTypes);
 db.summarisedData = require('../models/summarisedDataModel.js')(sequelize, DataTypes);
 db.userApps = require('../models/userAppsModel.js')(sequelize, DataTypes);
 db.analytics = require('../models/analyticsModel.js')(sequelize, DataTypes);
+db.company = require('../models/companyModel.js')(sequelize, DataTypes);
 
 db.users.hasMany(db.userWorkspace,{foreignKey:"user_id"});
-db.userWorkspace.hasOne(db.users,{foreignKey:"user_id"});
+db.userWorkspace.hasOne(db.users,{foreign: "user_id"});
 
 db.aiEmployees.hasOne(db.chatbot,{foreignKey:"ai_employee_id"});
 
@@ -53,7 +56,7 @@ db.users.hasMany(db.userApps,{foreignKey:"user_id"});
 db.users.hasMany(db.analytics,{foreignKey:"user_id"});
 db.aiEmployees.hasMany(db.analytics,{foreignKey:"ai_employee_id"});
 
-db.sequelize.sync({ alter: true }).then(() => {      // force:false production
+db.sequelize.sync({ force:false }).then(() => {      // force:false production alter: true
     console.log('yes re-sync done!')
 })
 

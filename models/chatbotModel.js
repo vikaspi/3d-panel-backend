@@ -3,12 +3,13 @@ const uuid = require('uuid');
 module.exports = (sequelize, DataTypes) => {
     const Chatbot = sequelize.define("chatbot", {
         chatbot_id: {
-            allowNull: false,
+            type:DataTypes.INTEGER,
+            autoIncrement: true,
             primaryKey: true,
-            type: DataTypes.UUID
+            allowNull:false,
         },
         ai_employee_id: {
-            type: DataTypes.UUID,
+            type: DataTypes.INTEGER,
         },
         chatbot_name: {
             type: DataTypes.STRING,
@@ -49,8 +50,6 @@ module.exports = (sequelize, DataTypes) => {
             freezeTableName: true,
             tableName: 'chatbot'
         });
-
-        Chatbot.beforeCreate(chatbot => chatbot.chatbot_id = uuid());
 
     return Chatbot;
 }

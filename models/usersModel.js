@@ -4,10 +4,10 @@ const { Sequelize, DataTypes , BOOLEAN} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define("user", {
         user_id: {
-            allowNull: false,
+            type:DataTypes.INTEGER,
+            autoIncrement: true,
             primaryKey: true,
-            type: DataTypes.UUID,
-            defaultValue: Sequelize.UUIDV4
+            allowNull:false,
         },
         first_name: {
             type: DataTypes.STRING,
@@ -50,8 +50,6 @@ module.exports = (sequelize, DataTypes) => {
             freezeTableName: true,
             tableName: 'user'
         });
-
-    User.beforeCreate(user => user.user_id = uuid);
 
     return User;
 }

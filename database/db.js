@@ -32,20 +32,26 @@ sequelize.authenticate().then(() => {
 const db = {};
 db.sequelize = sequelize;
 
-db.users = require('../models/users.js')(sequelize, DataTypes);
-db.userWorkspace = require('../models/userWorkspace.js')(sequelize, DataTypes);
-db.aiEmployees = require('../models/aiEmployees.js')(sequelize, DataTypes);
-db.chatbot = require('../models/chatbot.js')(sequelize, DataTypes);
-db.manualData = require('../models/manuals.js')(sequelize, DataTypes);
-
+db.users = require('../models/usersModel.js')(sequelize, DataTypes);
+db.userWorkspace = require('../models/userWorkspaceModel.js')(sequelize, DataTypes);
+db.aiEmployees = require('../models/aiEmployeesModel.js')(sequelize, DataTypes);
+db.chatbot = require('../models/chatbotModel.js')(sequelize, DataTypes);
+db.manualData = require('../models/manualsModel.js')(sequelize, DataTypes);
+db.summarisedData = require('../models/summarisedDataModel.js')(sequelize, DataTypes);
+db.userApps = require('../models/userAppsModel.js')(sequelize, DataTypes);
+db.analytics = require('../models/analyticsModel.js')(sequelize, DataTypes);
 
 db.users.hasMany(db.userWorkspace,{foreignKey:"user_id"});
 db.aiEmployees.hasOne(db.chatbot,{foreignKey:"ai_employee_id"});
 
 db.aiEmployees.hasOne(db.manualData, { foreignKey: 'ai_employee_id' });
+db.aiEmployees.hasOne(db.summarisedData, { foreignKey: 'ai_employee_id'});
 
+db.users.hasMany(db.userApps,{foreignKey:"user_id"});
+db.users.hasMany(db.analytics,{foreignKey:"user_id"});
+db.aiEmployees.hasMany(db.analytics,{foreignKey:"ai_employee_id"});
 
-db.sequelize.sync({ force: false }).then(() => {
+db.sequelize.sync({ alter: true }).then(() => {      // force:false production
     console.log('yes re-sync done!')
 })
 

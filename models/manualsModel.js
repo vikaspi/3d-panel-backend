@@ -1,7 +1,7 @@
 const uuid = require('uuid');
 // Define model
 module.exports = (sequelize, DataTypes) => {
-    const ManualData = sequelize.define("manualData", {
+    const ManualData = sequelize.define("manual_data", {
         manual_data_id: {
             allowNull: false,
             primaryKey: true,
@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
             // transform all passed model names (first parameter of define) into plural.
             // if you don't want that, set the following
             freezeTableName: true,
-            tableName: 'manualData'
+            tableName: 'manual_data'
         });
 
     ManualData.beforeCreate(manualData => manualData.manual_data_id = uuid());

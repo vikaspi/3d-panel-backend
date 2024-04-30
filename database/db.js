@@ -34,12 +34,16 @@ db.sequelize = sequelize;
 
 db.users = require('../models/users.js')(sequelize, DataTypes);
 db.userWorkspace = require('../models/userWorkspace.js')(sequelize, DataTypes);
+db.aiEmployees = require('../models/aiEmployees.js')(sequelize, DataTypes);
+db.chatbot = require('../models/chatbot.js')(sequelize, DataTypes);
+db.manualData = require('../models/manuals.js')(sequelize, DataTypes);
 
-// Associate models
-UserWorkspace.associate = (models) => {
-    // Define associations here
-    UserWorkspace.belongsTo(models.User, { foreignKey: 'user_id' });
-};
+
+db.users.hasMany(db.userWorkspace,{foreignKey:"user_id"});
+db.aiEmployees.hasOne(db.chatbot,{foreignKey:"ai_employee_id"});
+
+db.aiEmployees.hasOne(db.manualData, { foreignKey: 'ai_employee_id' });
+
 
 db.sequelize.sync({ force: false }).then(() => {
     console.log('yes re-sync done!')

@@ -1,44 +1,45 @@
 const uuid = require('uuid');
 // Define model
 module.exports = (sequelize, DataTypes) => {
-    const User = sequelize.define("user", {
-        user_id: {
+    const Chatbot = sequelize.define("chatbot", {
+        chatbot_id: {
             allowNull: false,
             primaryKey: true,
             type: DataTypes.UUID
         },
-        first_name: {
+        ai_employee_id: {
+            type: DataTypes.UUID,
+        },
+        chatbot_name: {
             type: DataTypes.STRING,
         },
-        last_name: {
+        chatbot_greeting_message: {
             type: DataTypes.STRING,
         },
-        open_api_key: {
+        chatbot_persona: {
             type: DataTypes.STRING,
         },
-        email: {
+        chatbot_jargon: {
             type: DataTypes.STRING,
         },
-        profile_photo: {
+        chatbot_tone_of_voice: {
             type: DataTypes.STRING,
         },
-        password: {
+        chatbot_speaks_as: {
             type: DataTypes.STRING,
         },
-        sso_token: {
-            type: DataTypes.STRING,
-        },
-        company_name: {
-            type: DataTypes.STRING,
-        },
-        is_admin: {
+        chatbot_can_share_links: {
             type: DataTypes.BOOLEAN,
-            defaultValue: false
         },
-        steps: {
-            type: DataTypes.SMALLINT,
-            defaultValue: 0
-        }
+        chatbot_can_use_emojis: {
+            type: DataTypes.BOOLEAN,
+        },
+        chatbot_specific_terms: {
+            type: DataTypes.STRING,
+        },
+        chatbot_main_purpose: {
+            type: DataTypes.STRING,
+        },
         //  by deafult it adds timestamps createdAt and updatedAt
     },
         {
@@ -46,10 +47,10 @@ module.exports = (sequelize, DataTypes) => {
             // transform all passed model names (first parameter of define) into plural.
             // if you don't want that, set the following
             freezeTableName: true,
-            tableName: 'user'
+            tableName: 'chatbot'
         });
 
-    User.beforeCreate(user => user.user_id = uuid());
+        Chatbot.beforeCreate(chatbot => chatbot.chatbot_id = uuid());
 
-    return User;
+    return Chatbot;
 }

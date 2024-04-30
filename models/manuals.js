@@ -1,27 +1,19 @@
 const uuid = require('uuid');
 // Define model
 module.exports = (sequelize, DataTypes) => {
-    const UserWorkspace = sequelize.define("user_workspace", {
-        user_workspace_id: {
+    const ManualData = sequelize.define("manualData", {
+        manual_data_id: {
             allowNull: false,
             primaryKey: true,
             type: DataTypes.UUID
         },
-        workspace_id: {
-            type: DataTypes.INTEGER,
-        },
-        user_id: {
+        ai_employee_id: {
             type: DataTypes.UUID,
         },
-        workspace_name: {
-            type: DataTypes.STRING,
-        },
-        owner_id: {
-            type: DataTypes.STRING,
-        },
-        flow_ns: {
+        manual_data:{
             type: DataTypes.STRING,
         }
+
         //  by deafult it adds timestamps createdAt and updatedAt
     },
         {
@@ -29,10 +21,10 @@ module.exports = (sequelize, DataTypes) => {
             // transform all passed model names (first parameter of define) into plural.
             // if you don't want that, set the following
             freezeTableName: true,
-            tableName: 'user_workspace'
+            tableName: 'manualData'
         });
 
-        UserWorkspace.beforeCreate(user_workspace => user_workspace.user_workspace_id = uuid());
+    ManualData.beforeCreate(manualData => manualData.manual_data_id = uuid());
 
-    return UserWorkspace;
+    return ManualData;
 }
